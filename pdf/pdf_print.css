@@ -1,0 +1,23 @@
+@import url('pdf.css');
+@import url('syntax.css');
+
+
+@page {
+  bleed: 9pt;
+  marks: crop;
+  -ah-printer-marks-line-color: cmyk(0%, 0%, 0%, 100%);
+}
+
+/* Handling for print URLs (URLs in parens) */
+
+span.print_url_in_parens { display: inline; }
+
+span.print_url {
+  font-style: italic;
+  word-wrap: break-word;
+  hyphens: auto;
+  hyphenate-character: "\200B";
+}
+
+a { color: rgb-icc(#Grayscale, 0); }
+

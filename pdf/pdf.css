@@ -1,0 +1,1725 @@
+@charset "UTF-8";
+
+/****
+ * Table of Contents
+ *
+ * Globals
+ * Cover
+ * Front Matter
+ * Copyright Page
+ * Dedication
+ * Page Types
+ * Right-side Page Breaks
+ * Table of Contents
+ *   TOC Globals
+ *   TOC Preface
+ *   TOC Parts
+ *   TOC Chapters
+ *   TOC Appendices
+ * PDF Bookmarks (from old theme)
+ * Paragraphs, Hyperlinks, Ems, and Cross-References
+ * Lists
+ * Notes, Tips, Warnings
+ * Preface
+ * Parts
+ * Chapters
+ * Appendices
+ * Index
+ * Examples
+ * Code
+ * Figures
+ * Tables
+ * Blockquotes & Epigraphs
+ * About The Author / Colophon
+ * Page-Breaking and Typesetting
+ *
+ ***/
+
+/* ===================================================================== */
+/* ============================ Globals ================================ */
+/* ===================================================================== */
+
+/* global styles */
+head title {
+  display: none;
+}
+
+body[data-type="book"] {
+	color: cmyk(0%,0%,0%,100%);
+	text-align: justify;
+	hyphens: auto;
+	hyphenate-before: 3;
+	hyphenate-after: 3;
+	-ah-hyphenation-minimum-character-count: 6;
+	-ah-hyphenate-hyphenated-word: false;
+	-ah-kerning-mode: pair; 
+	font-family: "BentonSans-Book", "Symbola";
+}
+
+@page { /* Maker */
+  size: 7.5in 9.25in;
+  margin: 0.5in 0.625in 0.75in 0.625in;
+  padding: 0 0 10pt 0;
+}
+
+@page :blank {
+  border-bottom: none;
+  @bottom-left { content: none; }
+	@bottom-right { content: none; }
+}
+
+@page blank {
+  border-bottom: none;
+  @bottom-left { content: none }
+  @bottom-right { content: none }
+}
+
+@page :left {
+  @bottom-left {
+    font-family: "SerifaStd-Light";
+    font-size: 8pt;
+    vertical-align: middle;
+    font-weight: normal;
+    padding-top: 0;
+  }
+}
+
+@page :right {
+  @bottom-right {
+    font-family: "SerifaStd-Light";
+    font-weight: normal;
+    font-size: 8pt;
+    vertical-align: middle;
+    padding-top: 0;
+  }
+}
+
+/* ===================================================================== */
+/* ============================ Cover ================================== */
+/* ===================================================================== */
+
+figure[data-type="cover"] { page: cover }
+
+figure[data-type="cover"] img {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+@page cover {
+  size: 7.5in 9.25in;
+  margin: 0;
+  padding: 0;
+}
+
+body[data-type="book"] > figure[data-type="cover"] + section { 
+	counter-reset: page 1;
+	page-break-before: right;
+}
+
+/* ===================================================================== */
+/* ============================ Front Matter =========================== */
+/* ===================================================================== */
+
+section[data-type="halftitlepage"],
+section[data-type="titlepage"] {
+  page: blank;
+  text-align: right;
+  page-break-before: right; /* titlepages always start on a right-hand page */
+  page-break-after: always;
+}
+
+
+section[data-type="halftitlepage"] h1,
+section[data-type="titlepage"] h1 {
+  display: block;
+  font-weight: 600;
+  font-size: 36pt;
+  font-family: "SerifaStd-Bold";
+  hyphens: none;
+  border-top: none;
+  text-align: left;
+  padding-top: 0in;
+  margin-top: 0.8in;
+  margin-bottom: 0.72in;
+  margin-left: 1in;
+  line-height: 90%;
+  string-set: BookTitle self;
+}
+
+section[data-type="titlepage"] p[data-type="subtitle"],
+section[data-type="titlepage"] p.subtitle,
+section[data-type="titlepage"] h2 {
+  display: block;
+  font-weight: 600;
+  font-size: 20pt;
+  font-family: "SerifaStd-Bold";
+  margin: -0.2in 0 0.5in 1in;
+  text-align: left;
+  line-height: 90%;
+}
+
+section[data-type="titlepage"] p.author {
+  font-family: "SerifaStd-Bold";
+  font-weight: 600;
+  font-style: normal;
+  float: none;
+  text-align: left;
+  font-size: 15pt;
+  hyphens: none;
+  margin: 0;
+  display: block;
+  line-height: 90%;
+  margin-left: 1in;
+}
+
+section[data-type="titlepage"] p.edition {
+  font-family: "BentonSans-Book"; 
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 11.5pt;
+  border-top: 0;
+  margin-left: 3in;
+  margin-top: 0.72in;
+} 
+
+section[data-type="titlepage"]:after {
+  display: block;
+  -ah-float: bottom right;
+  width: 3.2in;
+  margin-bottom: -18pt;
+  content: url("assets/maker_locations_fl_color.tif");
+}
+
+/* ===================================================================== */
+/* ============================ Copyright Page ========================= */
+/* ===================================================================== */
+
+@page copyright {
+  margin: 0.6in 0.6in;
+  border-bottom: none;
+  @bottom-left { content: none }
+  @bottom-right { content: none }
+}
+
+section[data-type="copyright-page"] {
+  page: copyright;
+  text-align-last: left;
+  page-break-after: always;
+  overflow: condense;
+  -ah-overflow-condense: font-size;
+}
+
+section[data-type="copyright-page"] p {
+  font-family: "BentonSans-Book";
+  font-weight: normal;
+  font-size: 8pt;
+}
+
+section[data-type="copyright-page"] a {
+  font-family: "BentonSans-BookItalic";
+  font-style: italic;
+  font-size: 8pt;
+  color: cmyk(100%,0%,0%,20%);
+}
+section[data-type="copyright-page"] h1 {
+  font-family: "SerifaStd-Bold";
+  font-weight: 600;
+  font-size: 13pt;
+  margin-bottom: 2pt;
+  padding-bottom: 0;
+}
+
+section[data-type="copyright-page"] p.author {
+}
+
+section[data-type="copyright-page"] ul {
+  margin: 0;
+  padding: 0;
+}
+
+section[data-type="copyright-page"] ul li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+section[data-type="copyright-page"] .stafflist {
+  column-count: 1;
+  margin-bottom: 11pt;
+}
+
+section[data-type="copyright-page"] .stafflist li,
+section[data-type="copyright-page"] .printings li,
+section[data-type="copyright-page"] .releases li {
+  font-family: "BentonSans-Book";
+  font-size: 7.5pt;
+}
+
+section[data-type="copyright-page"] .staffrole {
+  font-family: "BentonSans-Bold";
+  font-size: 8pt;
+}
+
+section[data-type="copyright-page"] .printedition {
+  display: inline-block;
+  width: 1in;
+}
+
+section[data-type="copyright-page"] h1.revisions {
+  font-family: "BentonSans-Book";
+  font-weight: normal;
+  font-size: 8pt;
+  margin-top: 10pt;
+  margin-bottom: 10pt;
+}
+
+section[data-type="copyright-page"] .releases {
+  margin-top: 10pt;
+  margin-bottom: 16pt;
+}
+
+section[data-type="copyright-page"] .revdate:after {
+  content: "\2003";
+}
+section[data-type="copyright-page"] .copyright-bottom {
+  -ah-float: page bottom;
+}
+
+/* ===================================================================== */
+/* ============================= Dedication ============================ */
+/* ===================================================================== */
+
+section[data-type="dedication"] {
+  font-family: "BentonSans-BookItalic";
+  font-style: italic;
+  page: blank;
+  page-break-after: always;
+  text-align: center;
+  padding-top: 0.75in;
+}
+
+section[data-type="dedication"] p {
+  font-family: "BentonSans-BookItalic";
+  font-style: italic;
+  font-size: 10.5pt;
+}
+
+/* ===================================================================== */
+/* =============================== Praise ============================== */
+/* ===================================================================== */
+section[data-type="dedication"].praise h1 {
+  display: block;
+  font-family: "SerifaStd-Bold";
+  font-weight: 600;
+  font-size: 20pt;
+  text-align: right;
+  margin-bottom: .75in;
+  margin-top: 0;
+  font-style: normal;
+}
+
+section[data-type="dedication"].praise blockquote {
+  hyphens: none;
+  margin: 0 0 20pt 0;
+}
+
+section[data-type="dedication"].praise blockquote p {
+  font-size: 10pt;
+  margin-bottom: 4pt;
+  text-align: right;
+  font-style: normal;
+}
+
+section[data-type="dedication"].praise blockquote span.attribution {
+  display: inline;
+  margin: 0;
+  font-style: italic;
+}
+
+section[data-type="dedication"].praise blockquote div.attribution {
+  margin-left: 30%;
+}
+
+/*--Begin support for emphasis in praise text and attributions--*/
+
+section[data-type="dedication"].praise blockquote span.attribution em.citetitle {
+  font-style: normal;
+}
+
+section[data-type="dedication"].praise blockquote span.attribution em.citetitle span.emphasis em {
+  font-style: italic;
+}
+
+section[data-type="dedication"].praise blockquote em.p span.emphasis em {
+  font-style: italic;
+}
+
+section[data-type="dedication"].praise blockquote p span.emphasis em {
+  font-style: italic;
+}
+
+/* ===================================================================== */
+/* ============================ Page Types ============================= */
+/* ===================================================================== */
+
+@page toc:left {
+  @bottom-left {
+    content: counter(page, lower-roman) "\2003" "Contents";
+  }
+}
+
+@page toc:right {
+  @bottom-right {
+    content: "Contents\2003" counter(page, lower-roman);
+  }
+}
+
+@page preface:left {
+  @bottom-left {
+    content: counter(page, lower-roman)"\2003"string(PrefaceTitle);
+  }
+}
+
+@page preface:right {
+  @bottom-right {
+    content: string(PrefaceTitle)"\2003"counter(page, lower-roman);
+  }
+}
+@page chapter:left {
+  @bottom-left {
+    content: counter(page) "\2003" string(BookTitle);
+  }
+}
+
+@page chapter:right {
+  @bottom-right {
+    content: string(ChapterTitle) "\2003" counter(page);
+  }
+}
+
+@page index:left {
+  @bottom-left {
+    content: counter(page)"\2003Index";
+  }
+}
+
+@page index:right {
+  @bottom-right {
+    content: "Index\2003"counter(page);
+  }
+}
+
+@page chapter:first { @bottom-right { content: counter(page) } }
+@page appendix:first { @bottom-right { content: counter(page) } }
+@page index:first { @bottom-right { content: counter(page); } }
+@page toc:first { @bottom-right { content: counter(page, lower-roman) } }
+@page preface:first { @bottom-right { content: counter(page, lower-roman) } }
+
+@page toc:blank {
+  @bottom-left { content: none }
+  @bottom-right { content: none }
+}
+@page chapter:blank {
+  @bottom-left { content: none }
+  @bottom-right { content: none }
+}
+@page appendix:blank {
+  @bottom-left { content: none }
+  @bottom-right { content: none }
+}
+@page preface:blank {
+  @bottom-left { content: none }
+  @bottom-right { content: none }
+}
+@page appendix:blank {
+  @bottom-left { content: none }
+  @bottom-right { content: none }
+}
+@page index:blank {
+  @bottom-left { content: none }
+  @bottom-right { content: none }
+}
+
+/* ===================================================================== */
+/* ====================== Right-side Page Breaks ======================= */
+/* ===================================================================== */
+
+nav[data-type="toc"],
+div[data-type="part"],
+section[data-type="preface"],
+section[data-type="chapter"],
+section[data-type="appendix"],
+section[data-type="glossary"],
+section[data-type="index"],
+section[data-type="foreword"] {
+  page-break-before: right;
+}
+
+/* ===================================================================== */
+/* ========================== Table of Contents ======================== */
+/* ===================================================================== */
+
+nav[data-type="toc"] {
+  page: toc;
+  font-variant: tabular-nums;
+  hyphens: none;
+  counter-reset: ChapterNumberTOC PartNumberTOC AppendixNumberTOC;
+}
+
+nav[data-type="toc"] > h1 {
+  font-size: 27pt;
+  color: cmyk(0%,0%,0%,100%);
+  margin-bottom: 0.9in;
+  text-align: right;
+  font-weight: 600;
+  border-top: none;
+  font-family: "SerifaStd-Bold";
+  margin-top: 0.05in;
+  text-replace: "Table of Contents" "Contents";
+}
+
+/* TOC Globals */
+nav[data-type="toc"] a {
+  color: cmyk(0%,0%,0%,100%);
+}
+
+nav[data-type="toc"] li {
+  list-style-type: none;
+  font-family: "BentonSans-Book";
+  font-size: 8pt;
+  font-weight: normal;
+  text-align: left;
+  line-height: 11.5pt;
+}
+
+/* TOC Bold Lines */
+nav[data-type="toc"] li[data-type="preface"],
+nav[data-type="toc"] li[data-type="chapter"],
+nav[data-type="toc"] li[data-type="appendix"],
+nav[data-type="toc"] li[data-type="glossary"],
+nav[data-type="toc"] li[data-type="index"],
+nav[data-type="toc"] li[data-type="foreword"] {
+  margin-left: 0;
+  font-family: "SerifaStd-Bold";
+  font-weight: 600;
+  page-break-after: avoid;
+}
+
+nav[data-type="toc"] li[data-type="preface"] > a:after,
+nav[data-type="toc"] li[data-type="chapter"] > a:after,
+nav[data-type="toc"] li[data-type="appendix"] > a:after,
+nav[data-type="toc"] li[data-type="glossary"] > a:after,
+nav[data-type="toc"] li[data-type="index"] > a:after,
+nav[data-type="toc"] li[data-type="foreword"] > a:after {
+  content: leader(dotted) " " target-counter(attr(href, url), page);
+}
+
+nav[data-type="toc"] li[data-type="sect1"] > a:after,
+nav[data-type="toc"] li[data-type="sect2"] > a:after {
+  content: leader(dotted) " " target-counter(attr(href, url), page);
+  font-weight: 600;
+  font-family: "SerifaStd-Bold";
+}
+
+/* ================== */
+/* == TOC Preface === */
+/* ================== */
+nav[data-type="toc"] li[data-type="preface"] > a:after,
+nav[data-type="toc"] li[data-type="foreword"] > a:after {
+  content: leader(dotted) " " target-counter(attr(href, url), page, lower-roman);
+}
+nav[data-type="toc"] li[data-type="preface"] {
+  margin-bottom: 0;
+}
+
+nav[data-type="toc"] li[data-type="preface"] li[data-type="sect1"],
+nav[data-type="toc"] li[data-type="preface"] li[data-type="sect2"], /* show no heads in preface */
+nav[data-type="toc"] li[data-type="appendix"] li[data-type="sect1"],
+nav[data-type="toc"] li[data-type="appendix"] li[data-type="sect2"] { /* and appendix */
+  display: none;
+}
+
+/* ================== */
+/* == TOC Parts ===== */
+/* ================== */
+nav[data-type="toc"] li[data-type="part"] {
+  border-top: solid cmyk(0%,0%,0%,100%) 0.25pt;
+  display: block;
+  padding-top: 0.05in;
+  margin: 10pt 0 6pt 0;
+  font-family: "SerifaStd-Bold";
+  font-size: 14pt;
+  font-weight: 600;
+  text-align: left;
+  page-break-after: avoid;
+}
+
+nav[data-type="toc"] li[data-type="part"]:before {
+  content: "Part " counter(PartNumberTOC, upper-roman) "\200F\200F";
+  counter-increment: PartNumberTOC;
+  margin-right: 0.12in;
+}
+
+/* ================== */
+/* == TOC Chapters == */
+/* ================== */
+nav[data-type="toc"] li[data-type="chapter"] {
+  margin-top: 0.15in;
+  page-break-after: auto;
+}
+
+nav[data-type="toc"] li[data-type="chapter"]:before {
+  content: counter(ChapterNumberTOC, decimal) "\002F";
+  counter-increment: ChapterNumberTOC;
+}
+
+nav[data-type="toc"] li[data-type="chapter"] li[data-type="sect1"]:first-child 
+{ page-break-before: avoid }
+
+/* ================== */
+/* == TOC Sections == */
+/* ================== */
+
+nav[data-type="toc"] li[data-type="sect1"] {
+  padding-left: 0.12in;
+  font-size: 8pt;
+  text-indent: -0.12in; /* for long lines; cascades to sect2s */
+  margin-left: 0.12in;
+  line-height: 12.5pt;
+}
+
+nav[data-type="toc"] ul {
+}
+
+nav[data-type="toc"] li[data-type="sect2"] {
+  font-size: 8pt;
+  page-break-after: auto;
+}
+
+/* ================== */
+/* = TOC Appendices = */
+/* ================== */
+
+nav[data-type="toc"] li[data-type="appendix"],
+nav[data-type="toc"] li[data-type="index"]  {
+  padding-left: 0;
+  margin-left: 0;
+  margin-top: 0.10in;
+}
+nav[data-type="toc"] li[data-type="appendix"]:before {
+  content: counter(AppendixNumberTOC, upper-alpha) "\002F";
+  counter-increment: AppendixNumberTOC;
+}
+
+
+/* ===================================================================== */
+/* ================= Global Styles for Section Headings ================ */
+/* ===================================================================== */
+
+h1, h2, h3, h4, h5 {
+  font-family: "SerifaStd-Bold";
+  hyphens: none;
+  page-break-after: avoid;
+  display: block;
+  text-align: left;
+}
+
+span.tm {
+  font-family: "Symbola";}
+
+section[data-type="preface"] > h1,
+div[data-type="part"] > h1,
+section[data-type="chapter"] > h1,
+section[data-type="index"] > h1,
+section[data-type="appendix"] > h1,
+section[data-type="foreword"] > h1 {
+  font-size: 28.5pt;
+  font-weight: 600;
+  line-height: 92%;
+  margin-bottom: 0.75in;
+  margin-top: 0;
+  text-align: right;
+}
+
+section[data-type="preface"] > h1 {
+  string-set: PrefaceTitle self;
+}
+
+div[data-type="part"] > h1 {
+  string-set: PartTitle self;
+}
+
+section[data-type="chapter"] > h1 {
+  string-set: ChapterTitle self;
+}
+
+section[data-type="appendix"] > h1 {
+  counter-increment: AppendixNumber;
+}
+
+div[data-type="part"] > h1:before {
+  text-align: right;
+  display: block;
+  counter-increment: PartNumber;
+  content: "Part " counter(PartNumber, upper-roman);
+  text-transform: uppercase;
+  font-size: 18.92pt;
+  margin: 0 0 5pt 0;
+  border-bottom: solid cmyk(0%,0%,0%,100%) 0.25pt;
+}
+
+section[data-type="chapter"] > h1:before {
+  text-align: right;
+  display: inline;
+  counter-increment: ChapterNumber;
+  content: counter(ChapterNumber)"\002F";
+  text-transform: none;
+  font-size: 28.5pt;
+  margin: 0;
+}
+
+section[data-type="appendix"] > h1:before {
+  text-align: right;
+  display: inline;
+  content: counter(AppendixNumber, upper-alpha)"\002F";
+  text-transform: none;
+  font-size: 28.5pt;
+  margin: 0;
+}
+
+section[data-type="sect1"] > h1 {
+  font-size: 17.5pt;
+  line-height: 92%;
+  padding: 0;
+  margin-bottom: 6.75pt;
+}
+
+section[data-type="sect2"] > h2 { /* B-level headings */
+  font-size: 16.5pt;
+  line-height: 92%;
+  padding: 0;
+  margin-bottom: 6pt;
+}
+
+section[data-type="sect3"] > h3 { /* C-level headings */
+  font-size: 13.5pt;
+  padding: 0;
+  margin-bottom: 5.75pt;
+}
+
+section[data-type="sect4"] > h4 { /* D-level headings */
+  display: inline;
+  font-size: 11.5pt;
+  padding: 0;
+}
+
+/* sect4s */
+section[data-type="sect4"] > h4:after {
+}
+
+/* ===================================================================== */
+/* ======= Paragraphs, Hyperlinks, Ems, and Cross-References =========== */
+/* ===================================================================== */
+
+p {
+  font-size: 10.5pt;
+  margin: 0 0 6pt 0;
+}
+
+p.lede {
+  font-family: "BentonSans-Light";
+  font-size: 16.5pt;
+  line-height: 1.1;
+}
+
+a.pagenum:after,
+a.xref:after {
+  content: " on page "target-counter(attr(href, url), page);
+  font-family: "BentonSans-Book";
+}
+
+
+a {
+  color: cmyk(100%,0%,0%,20%);
+}
+
+.email,
+.filename,
+a[href*="mailto:"] {
+  font-family:"BentonSans-BookItalic";
+  font-style: italic;
+  font-size: inherit;
+}
+
+.emphasis, em {
+  font-family: "BentonSans-BookItalic";
+  font-style: italic;
+}
+
+[data-type="sidebar"] {
+  margin: 11.5pt 0;
+  border: 0.25pt solid cmyk(0%,0%,0%,100%);
+  padding: 10pt 8pt 4pt 8pt;
+}
+
+[data-type="sidebar"] h5 {
+  display: block;
+  font-weight: 600;
+  font-family: "SerifaStd-Bold";
+  font-size: 15.5pt;
+  text-align: center;
+  margin: 0;
+}
+
+[data-type="sidebar"] p,
+[data-type="sidebar"] li,
+[data-type="sidebar"] dl,
+[data-type="sidebar"] dt span.term {
+  font-size: 10pt;
+}
+
+[data-type="sidebar"] img {
+  max-width: 4in;
+}
+
+code, code.literal {
+  font-size: 10.5pt;
+  font-family: "TheSansMonoCd-W5Regular";
+  font-size: inherit;
+}
+
+strong code {
+  font-family: "TheSansMonoCd-W7Bold";
+  font-weight: 600;
+}
+em code {
+  font-family: "TheSansMonoCd-W5RegularItalic";
+  font-style: italic;
+}
+
+/* ===================================================================== */
+/* ============================ Lists ================================== */
+/* ===================================================================== */
+
+ul, ol {
+  margin: 0;
+  padding: 4pt 0 6pt 0;
+  font-size: 10.5pt;
+}
+
+ul li {
+  list-style-type: disc;
+  margin: 0 0 0 17pt;
+  padding: 0 0 0 4pt;
+}
+
+ol li {
+  margin: 0 0 0 17pt;
+  padding: 0;
+}
+
+ul li p, ol li p {
+  margin-bottom: 4pt;
+}
+
+ol ul li, ul ol li {
+  margin-left: 10pt;
+}
+
+ol ol li {
+  list-style-type: lower-alpha;
+  margin-left: 13pt;
+}
+
+ol ol ol li {
+  list-style-type: lower-roman;
+}
+
+ul ul li::marker {
+  content: "\2014";
+}
+
+ul ul, ol ol {
+  padding: 0pt;
+}
+
+ul ul li {
+  margin-left: 17pt;
+}
+
+ul ul li p {
+  margin-left: -3pt;
+}
+
+dl {
+  margin-bottom: 6pt;
+  padding: 0;
+}
+
+dt {
+  text-align: left;
+  margin-top: 7pt;
+  padding: 0;
+  page-break-after: avoid;
+  font-family: "BentonSans-BookItalic";
+  font-style: italic;
+  font-size: 10.5pt;
+}
+
+dt.plain, dt code, dt code a {
+  font-style: normal;
+}
+
+dt em code, dt code em {
+  font-style: italic;
+}
+
+dd {
+  margin-left: 17pt;
+  font-size: 10.5pt;
+}
+
+dd ol,
+dd ul {
+  padding: 0 0 4pt 0;
+}
+
+/*handling for non-italic dt*/
+dl.plain dt { 
+ font-style: normal;
+ font-family: "BentonSans-Book";
+}
+
+span.plain { 
+  font-style: normal !important;
+ font-family: "BentonSans-Book" !important;
+ 
+}
+
+ul.simplelist {
+  margin-left: 17pt;
+  padding: 4pt 0 10pt 0;
+}
+
+ul.simplelist li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+address {
+  font-size: 10.5pt;
+  font-style: normal;
+  margin: 8pt 0 8pt 17pt;
+}
+
+/* ===================================================================== */
+/* =========================== Admonitions ============================= */
+/* ===================================================================== */
+
+div[data-type="note"],
+div[data-type="warning"],
+div[data-type="tip"],
+div[data-type="caution"]
+ {
+  position: relative;
+  margin: 10pt 0 10pt 0;
+  padding: 10pt 10pt 10pt 45pt;
+  border-top: 0.25pt dashed cmyk(0%, 0%, 0%, 100%);
+  border-bottom: 0.25pt dashed cmyk(0%, 0%, 0%, 100%);
+  page-break-inside: avoid;
+  clear: both;
+  font-size: 10.5pt;
+}
+
+div[data-type="caution"],
+div[data-type="warning"] {min-height: 0.4in;}
+
+div[data-type="warning"]:before,
+div[data-type="note"]:before,
+div[data-type="tip"]:before,
+div[data-type="caution"]:before {
+  position: absolute;
+  left: 10pt;
+  top: 10pt;
+  width: 25pt;
+}
+
+div[data-type="note"]:before,
+div[data-type="tip"]:before  {
+  content: url("assets/pencil_icon_color.png");
+    image-resolution: from-image;
+
+}
+
+div[data-type="warning"]:before,
+div[data-type="caution"]:before  {
+  content: url("assets/bomb_icon_color.png");
+    image-resolution: from-image;
+
+}
+
+div[data-type="note"] h1,
+div[data-type="tip"] h1
+{
+  font-family: "SerifaStd-Bold";
+  font-weight: 600;
+  font-size: 12.5pt;
+  margin-top: -9pt;
+  margin-bottom: 0;
+  padding-top: 6.5pt;
+  color: cmyk(0%,0%,0%,100%);
+}
+
+div[data-type="warning"] h1, 
+div[data-type="caution"] h1 {
+  font-family: "SerifaStd-Bold";
+  font-weight: 600;
+  font-size: 12.5pt;
+  color: cmyk(0%,0%,0%,100%);
+  margin-bottom: 0;
+  margin-top: -1pt;
+}
+
+div[data-type="note"] pre,
+div[data-type="warning"] pre,
+div[data-type="tip"] pre,
+div[data-type="caution"] pre
+ {
+  margin-left: 17pt;
+ }
+/* ===================================================================== */
+/* ============================= Preface =============================== */
+/* ===================================================================== */
+
+section[data-type="preface"] {
+  page: preface;
+  counter-reset: FigureNumber TableNumber ExampleNumber EquationNumber footnote;
+}
+
+/*safari section in preface*/
+div[data-type="note"].safarienabled:before {
+  content: url("assets/safari-logo-lockup-sunshine.tif");
+  margin: 5pt 8pt 0 -5pt;
+  width: 65pt;
+  float: left;
+}
+
+div[data-type="note"].safarienabled {
+   padding: .2in .2in .08in 76pt;
+}
+
+/* ===================================================================== */
+/* =============================== Parts =============================== */
+/* ===================================================================== */
+
+section[data-type="part"] {
+  page: blank;
+  counter-reset: TableNumber FigureNumber ExampleNumber EquationNumber footnote;
+  counter-increment: PartNumber;
+}
+
+div[data-type="part"].pagenumrestart
+{ counter-reset: page 1 FigureNumber TableNumber ExampleNumber EquationNumber footnote }
+
+
+/* ===================================================================== */
+/* ============================== Chapters ============================= */
+/* ===================================================================== */
+
+section[data-type="chapter"] {
+  page: chapter;
+  counter-reset: TableNumber FigureNumber ExampleNumber EquationNumber footnote;
+}
+
+div.pagenumrestart {
+  counter-reset: page 1;
+}
+
+/*author byline*/
+p.byline {
+  text-align: right;
+  margin-bottom: 26pt;
+  margin-top: -33pt;
+  font-family: "BentonSans-BookItalic";
+  font-size: 13pt;
+  font-style: italic;
+}
+
+p.byline:before { content: "\2014 " }
+
+/* ===================================================================== */
+/* ============================ Appendices ============================= */
+/* ===================================================================== */
+
+section[data-type="appendix"] {
+  page: appendix;
+  counter-reset: TableNumber FigureNumber ExampleNumber EquationNumber footnote;
+}
+
+
+@page appendix:left {
+  @bottom-left {
+    content: counter(page) "\2003""Appendix " counter(AppendixNumber, upper-alpha);
+  }
+}
+
+@page appendix:right {
+  @bottom-right {
+    content: "Appendix " counter(AppendixNumber, upper-alpha) "\2003" counter(page);
+  }
+}
+
+
+/* ===================================================================== */
+/* =============================== Index =============================== */
+/* ===================================================================== */
+
+section[data-type="index"] {
+  page: index;
+}
+
+.indexnote {
+  content: "We’d like to hear your suggestions for improving our indexes. Send email to index@oreilly.com.";
+  float: bottom;
+  margin-top: 15pt;
+  font-size: 9.5pt;
+  font-style: italic;
+  hyphens: none;
+}
+
+div[data-type="index"] {
+  column-count: 2;
+  column-gap: 15pt;
+}
+
+a[data-type="index:locator"] {
+  content: target-counter(attr(href, url), page);
+}
+
+/*index markers as roman numrals*/
+a[data-type="index:locator"][data-xref-pagenum-style="lower-roman"] 
+{ content: target-counter(attr(href, url), page, lower-roman) }
+
+section[data-type="index"] ul {
+  margin: 0;
+  padding: 0;
+}
+
+section[data-type="index"] ul li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 0 0 0.17in;
+  text-indent: -0.17in;
+  font-size: 9pt;
+  text-align: left;
+}
+
+section[data-type="index"] h3 {
+  font-family: "SerifaStd-Bold";
+  font-size: 13pt;
+  margin: 6pt 0 6pt 0;
+  page-break-after: avoid;
+}
+
+/* ===================================================================== */
+/* ============================= Examples ============================== */
+/* ===================================================================== */
+
+[data-type="example"] > h5 {
+  font-family: "SerifaStd-Roman";
+  font-size: 13.5pt;
+  font-style: normal;
+  padding: 0;
+  margin-bottom: 4pt;
+  hyphens: none;
+  text-align: left;
+}
+
+[data-type="example"] pre[data-type="programlisting"] {
+  margin-left: 0;
+}
+
+[data-type="example"] > h5:before {
+  counter-increment: ExampleNumber;
+  content: "Example " counter(ChapterNumber)"-"counter(ExampleNumber)". ";
+}
+
+
+/* ----------------------- Examples for Appendix ------------------------*/
+section[data-type="appendix"] [data-type="example"] > h5:before {
+  counter-increment: ExampleNumber;
+  content: "Example " counter(AppendixNumber, upper-alpha)"-"counter(ExampleNumber)". ";
+}
+
+
+
+/* ===================================================================== */
+/* =============================== Code ================================ */
+/* ===================================================================== */
+
+pre {
+  font-family: "TheSansMonoCd-W5Regular";
+  margin: 4pt 0 4pt 17pt;
+  font-size: 9.15pt;
+  white-space: pre-wrap;
+  hyphens: none;
+  text-align: left;
+  -ah-ignore-leading-newline: true;
+}
+
+pre em {
+  font-family: "TheSansMonoCd-W5RegularItalic";
+  font-style: italic;
+}
+
+code {
+  word-wrap: break-word; /* allow code to break if needed */
+  hyphens: auto;
+  hyphenate-character: "\200B";
+}
+
+pre[data-type="programlisting"] {
+}
+
+pre.keep-together {
+  page-break-inside: avoid;
+}
+
+pre .co img {
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  height: 6.5pt;
+  margin-left: 5pt;
+}
+
+.calloutlist dt {
+  margin-top: 0;
+}
+.calloutlist dt p {
+  margin-bottom: 0;
+}
+
+.calloutlist dd {
+  margin-left: 23pt;
+}
+
+.calloutlist .co {
+  float: left;
+}
+
+.calloutlist .co img {
+  height: 6.5pt;
+  vertical-align: middle;
+}
+
+/* ===================================================================== */
+/* ============================== Figures ============================== */
+/* ===================================================================== */
+
+figure {
+  display: block;
+  margin-bottom: 8pt;
+  text-align: center; /* (images are inline-block, so they respect text-align) */
+}
+
+figure .border-box {
+  display: block;
+  border: 0.25pt solid cmyk(0%,0%,0%,100%);
+}
+
+img {
+  image-resolution: from-image;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+figure img {
+  max-width: 5.75in;
+  max-width: 5.75in;
+}
+
+figcaption {
+  display: block;
+  font-family: "BentonSans-BookItalic", Symbola;
+  font-size: 10.5pt;
+  font-style: italic;
+  margin-top: 0.1in;
+  string-set: FigureNumber self;
+  text-align: left;
+  page-break-after: auto;
+  page-break-before: avoid;
+}
+
+/* Suppress figure label when image has empty <figcation/> */
+figcaption:empty {
+  display: none;
+}
+
+figcaption:before {
+  counter-increment: FigureNumber;
+  content: "Figure " counter(ChapterNumber)"-"counter(FigureNumber)". ";
+  font-family: "SerifaStd-Bold";
+  font-style: normal;
+  font-weight: 600;
+}
+
+section[data-type="preface"] figcaption:before {
+  content: "Figure P-"counter(FigureNumber)". ";
+}
+
+section[data-type="appendix"] figcaption:before {
+  content: "Figure " counter(AppendixNumber, upper-alpha)"-"counter(FigureNumber)". ";
+}
+
+div[data-type="part"] figcaption:before {
+  content: "Figure " counter(PartNumber, upper-roman)"-"counter(FigureNumber)". ";
+}
+
+div[data-type="part"] section[data-type="chapter"] figcaption:before {
+  content: "Figure " counter(ChapterNumber)"-"counter(FigureNumber)". ";
+}
+
+div[data-type="part"] section[data-type="appendix"] figcaption:before {
+  content: "Figure " counter(AppendixNumber, upper-alpha)"-"counter(FigureNumber)". ";
+}
+
+/* ===================================================================== */
+/* ============================== Tables =============================== */
+/* ===================================================================== */
+
+
+table {
+  max-width: 100%;
+  margin: 6pt 0;
+  border-collapse: collapse;
+  border: 0.25pt solid cmyk(0%, 0%, 0%, 100%);
+  margin-bottom: 16pt;
+  font-family: "BentonSans-Book", "ArialUnicodeMS";
+  font-size: 9.5pt;
+  hyphens: none;
+}
+
+table caption {
+  display: table-caption;
+  font-family: "BentonSans-BookItalic", Symbola;
+  font-size: 10.5pt;
+  font-style: italic;
+  margin-bottom: 4pt;
+  page-break-after: avoid;
+  text-align: left;
+}
+
+table caption:before {
+  font-family: "SerifaStd-Bold";
+  font-style: normal;
+  font-weight: 600;
+  counter-increment: TableNumber;
+  content: "Table " counter(ChapterNumber) "-" counter(TableNumber)". ";
+}
+
+section[data-type="appendix"] table caption:before {
+  content: "Table " counter(AppendixNumber, upper-alpha)"-"counter(TableNumber)". ";
+}
+
+section[data-type="preface"] table caption:before {
+  content: "Table " "P-" counter(TableNumber)". ";
+}
+
+table td p {
+  margin: 0;
+  font-size: 9.5pt;
+  font-family: "BentonSans-Book", "ArialUnicodeMS";
+}
+
+table code {
+  font-size: 9.5pt;
+}
+
+table td,
+table th {
+  vertical-align: top;
+  padding: 0.2em 0.4em 0.2em 0.4em;
+  border: 0.25pt solid cmyk(0%, 0%, 0%, 100%);
+  color: cmyk(0%,0%,0%,100%);
+  text-align: left;
+  word-spacing: 0.3pt;
+}
+
+table thead th {
+  font-family: "MyriadPro-Cond", "ArialUnicodeMS";
+  font-size: 9.5pt;
+  background-color: transparent;
+}
+
+/* ===================================================================== */
+/* ====================== Blockquotes & Epigraphs ====================== */
+/* ===================================================================== */
+
+/* Not Tested */
+blockquote p {
+  margin-left: 0.25in;
+  margin-right: 0.25in;
+  margin-bottom: 4pt;
+  font-size: 10pt;
+  text-align:left;
+}
+
+/* Not Tested */
+blockquote .attribution:before {
+  content: "\2014";
+}
+
+/* Not Tested */
+blockquote .attribution {
+  display: block;
+  font-style:normal;
+  text-align:right;
+}
+
+/* ===================================================================== */
+/* ==================== About the Author / Colophon ==================== */
+/* ===================================================================== */
+
+section[data-type="abouttheauthor"] { page: abouttheauthor }
+
+@page abouttheauthor {
+	border-bottom: none;
+  	@top-right { content: none }
+  	@bottom-left { content: none }
+  	@bottom-right { content: none }
+}
+
+section[data-type="colophon"] { 
+ page: colophon;
+}
+
+@page colophon {
+	border-bottom: none;
+  	@top-right { content: none }
+  	@bottom-left { content: none }
+  	@bottom-right { content: none }
+}
+
+/* ===================================================================== */
+/* ========================== Footnote Settings ======================== */
+/* ===================================================================== */
+span[data-type="footnote"],
+aside[data-type="sidebar"] span[data-type="footnote"] {
+  -ah-float: footnote;
+  font-size: 9pt;
+  line-height: 10pt;
+  margin-left: 8pt;
+  margin-bottom: 3pt;
+  text-align: left;
+  text-indent: 0;
+}
+
+::footnote-call,
+::footnote-marker {
+  content: counter(footnote, decimal);
+  line-height: 5pt;
+}
+
+::footnote-call { font-size: 6pt }
+
+::footnote-marker { font-size: 7pt }
+
+
+/* ===================================================================== */
+/* ======================== PDF Bookmarks ============================== */
+/* ===================================================================== */
+
+/* revise these for HTMLBook */
+
+figure[data-type="cover"] {
+  bookmark-level: 1;
+  bookmark-state: closed;
+  bookmark-label: "Cover";
+}
+
+section[data-type="copyright-page"] {
+  bookmark-level: 1;
+  bookmark-state: closed;
+  bookmark-label: "Copyright"; 
+}
+
+nav[data-type="toc"] {
+  bookmark-level: 1;
+  bookmark-state: closed;
+  bookmark-label: "Table of Contents"; 
+}
+
+section[data-type="foreword"] {
+  bookmark-level: 1; 
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+section[data-type="preface"] {
+  bookmark-level: 1; 
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+div[data-type="part"] {
+  bookmark-level: 1;
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+/* ---------- Bookmark logic for titles that don't have parts ---------- */
+
+section[data-type="chapter"] {
+  bookmark-level: 1;
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+section[data-type="sect1"] { 
+  bookmark-level: 2; 
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+section[data-type="sect2"] { 
+  bookmark-level: 3; 
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+section[data-type="appendix"] {
+  bookmark-level: 1;
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+section[data-type="glossary"] {
+  bookmark-level: 1;
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+section[data-type="bibliography"] {
+  bookmark-level: 1;
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark); 
+}
+
+section[data-type="index"] {
+  bookmark-level: 1;
+  bookmark-state: closed;
+  bookmark-label: "Index"; 
+}
+
+section[data-type="afterword"] {
+  bookmark-level: 1;
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark); 
+}
+
+section.abouttheauthor {
+  bookmark-level: 1;
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark); 
+}
+
+/* ----------- Bookmark logic for titles that do have parts: ----------- */
+/* ------- chapters, appendixes, glossaries, sect1s, and sect2s -------- */
+/* --------------- within a part are bumped down a level --------------- */
+
+div[data-type="part"] section[data-type="chapter"] {
+  bookmark-level: 2;
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+div[data-type="part"] section[data-type="sect1"] { 
+  bookmark-level: 3; 
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+div[data-type="part"] section[data-type="sect2"] { 
+  bookmark-level: 4; 
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+div[data-type="part"] section[data-type="afterword"] {
+  bookmark-level: 2;
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+} 
+
+div[data-type="part"] section[data-type="appendix"] { 
+  bookmark-level: 2;
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+div[data-type="part"] section[data-type="glossary"] { 
+  bookmark-level: 2;
+  bookmark-state: closed;
+  bookmark-label: attr(data-pdf-bookmark);
+}
+
+
+/* --------------------------------------------------------------------- */
+/* ----------------------- Styling for Comments ------------------------ */
+/* --------------------------------------------------------------------- */
+
+/* Sticky note style box for comment*/
+div[data-type="comment"] {
+     width: auto;
+     max-width: 80%;
+     background-color: #ffff99;
+     border: 0.25pt solid cmyk(0%,0%,0%,25%);
+     box-shadow: 1pt 1pt 1.5pt rgba(0,0,0,0.3);
+     margin: 5pt 0 15pt;
+     padding: 5pt;
+     display: table;
+     page-break-inside: avoid;
+     page-break-before: avoid;
+}
+
+/* Comment text */
+div[data-type="comment"] p {
+     font-family: "Lato";
+     font-size: 10pt;
+     line-height: 13pt;
+     text-align:left;
+     text-indent: 0;
+     margin: 0;
+     padding: 5pt 5pt 0;
+     border-top: 0.5pt solid cmyk(0%,0%,0%,100%);
+     hyphens: none;
+}
+
+/* Comment ID */
+div.comment-identifier {
+     font-family: "BentonSans-Bold";
+     font-size: 8pt;
+     margin: 0 5pt 2pt;
+     padding: 0;
+     text-align:left;
+}
+
+/* remove <img> and <i> tags */
+div.comment-identifier img,
+div.comment-identifier i { display: none }
+
+/* ===================================================================== */
+/* =================== Page-Breaking and Typesetting =================== */
+/* ===================================================================== */
+
+p.keep_with_next {
+  page-break-after: avoid;
+}
+div.keep-together {
+  page-break-inside: avoid;
+}
+.hard-pagebreak {
+  page-break-after: always;
+}
+.hard-pagebreak-before {
+  page-break-before: always;
+}
+div.nobreak {
+  page-break-before: avoid;
+}
+
+span.tighten {
+  letter-spacing: -0.2pt;
+} /* tighter tracking */
+span.loosen {
+  letter-spacing: 0.2pt;
+} /* looser tracking */
+
+span.keep-together, code.keep-together {
+  white-space: nowrap;
+}
+
+span.keycap { /* boxed */
+  font-style: normal;
+  font-weight: normal;
+  border: cmyk(0%,0%,0%,100%) solid 0.2pt;
+  padding: 0.5pt;
+}
+
+span.remark { /* for commenting in the pdf */
+  font-size: smaller;
+  color: #ff4424;
+  font-style: italic;
+}
+
+span.lineannotation { /* for commenting in a <pre> */
+  font-family: "BentonSans-BookItalic", Symbola;
+  font-style: italic;
+  color: rgb(0,153,255);
+}
+
+span.roman {
+  font-style: normal;
+}
+span.underline {
+  text-decoration: underline;
+}
+span.strikethrough {
+  text-decoration: line-through;
+}
+span.smaller {
+  font-size: smaller;
+}
+
+span.smallcaps { /* not using font-variant because AH doesn't deal well; could test further though */
+  text-transform: uppercase;
+  font-size: smaller;
+}
+
+sub, sup {
+  font-size: 6.3pt;
+}
+
+p.right { /* right align */
+  text-align: right;
+  margin-bottom: 0;
+}
+/* --------------------------------------------------------------------- */
+/* -------------------------- Custom Classes --------------------------- */
+/* --------------------------------------------------------------------- */
+
+/* Page number restart */
+section.pagenumrestart { counter-reset: page 1 }
+div.pagenumrestart { counter-reset: page 1 }
+
+/* Page-breaking */
+.pagebreak-before { page-break-before: always }
+.pagebreak-after { page-break-after: always }
+
+/* Variable Widths */
+/* Do not add the "width" attribute directly to an HTML tag */
+/* Use one of these instead */
+.width-25 { width: 25% }
+.width-50 { width: 50% }
+.width-75 { width: 75% }
+.width-100 { width: 100% }
+
+/* Use this for table captions that need to be wider than the table */
+.width-full { width: 7in }
+
+/* --- Reset counters --- */
+body[data-type="book"] {
+  counter-reset: page 1 PartNumber ChapterNumber AppendixNumber FigureNumber TableNumber ExampleNumber EquationNumber footnote;
+}
+
+section[data-type="chapter"].pagenumrestart
+{ counter-reset: page 1 FigureNumber TableNumber ExampleNumber EquationNumber footnote}
+
+div[data-type="part"].pagenumrestart
+{ counter-reset: page 1 FigureNumber TableNumber ExampleNumber EquationNumber footnote}
